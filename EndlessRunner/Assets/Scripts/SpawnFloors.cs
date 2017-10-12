@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class SpawnFloors : MonoBehaviour {
 
-    public GameObject firstFloor;
+    public List<GameObject> floors;
     public GameObject positionToSpawn;
     public float TimeInterval;
     float nextSpawnTime;
@@ -21,8 +21,8 @@ public class SpawnFloors : MonoBehaviour {
         {
             if (Time.time > nextSpawnTime)
             {
-                GameObject go = Instantiate(firstFloor, new Vector3(positionToSpawn.transform.position.x, positionToSpawn.transform.position.y, positionToSpawn.transform.position.z), new Quaternion(0, 0, 0, 0)) as GameObject;
-                
+                int index = Random.Range(0, floors.Count);
+                GameObject go = Instantiate(floors.ToArray()[index], new Vector3(positionToSpawn.transform.position.x, positionToSpawn.transform.position.y, positionToSpawn.transform.position.z), positionToSpawn.transform.rotation) as GameObject;
                 isFloorCreated = true;
                 nextSpawnTime += TimeInterval;
             }

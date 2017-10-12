@@ -28,7 +28,7 @@ namespace UnityStandardAssets.Characters.ThirdPerson
 		Vector3 m_CapsuleCenter;
 		CapsuleCollider m_Capsule;
 		bool m_Crouching;
-
+        float m_TurnCorner=0;
 
 		void Start()
 		{
@@ -54,6 +54,12 @@ namespace UnityStandardAssets.Characters.ThirdPerson
 			CheckGroundStatus();
 			move = Vector3.ProjectOnPlane(move, m_GroundNormal);
 			m_TurnAmount = Mathf.Atan2(move.x, move.z);
+            if (m_TurnCorner != 0)
+            {
+                m_TurnAmount = m_TurnCorner;
+                m_TurnCorner = 0;
+                
+            }
 			m_ForwardAmount = move.z;
 
 			ApplyExtraTurnRotation();
@@ -119,7 +125,7 @@ namespace UnityStandardAssets.Characters.ThirdPerson
 		{
 			// update the animator parameters
 			m_Animator.SetFloat("Forward", m_ForwardAmount, 0.1f, Time.deltaTime);
-			m_Animator.SetFloat("Turn", m_TurnAmount, 0.1f, Time.deltaTime);
+			m_Animator.SetFloat("Turn", m_TurnAmount, 0.001f, Time.deltaTime);
 			m_Animator.SetBool("Crouch", m_Crouching);
 			m_Animator.SetBool("OnGround", m_IsGrounded);
 			if (!m_IsGrounded)
@@ -151,7 +157,11 @@ namespace UnityStandardAssets.Characters.ThirdPerson
 				m_Animator.speed = 1;
 			}
 		}
+        public void TurnCorners(float turnAmount)
+        {
 
+            m_TurnCorner = turnAmount;
+        }
 
 		void HandleAirborneMovement()
 		{
