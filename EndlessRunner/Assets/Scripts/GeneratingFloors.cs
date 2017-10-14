@@ -22,14 +22,17 @@ public class GeneratingFloors : MonoBehaviour {
             GameObject go = Instantiate(floorsStraight.ToArray()[r], location, rot) as GameObject;
             
             location = new Vector3(go.transform.Find("SpawnPoint").transform.position.x, go.transform.Find("SpawnPoint").transform.position.y, go.transform.Find("SpawnPoint").transform.position.z);
-            rot = go.transform.Find("SpawnPoint").transform.rotation;
-            Debug.Log(counter + " location: " + location.ToString() + " rotation: " + rot.ToString()); 
+            rot = go.transform.Find("SpawnPoint").transform.rotation;  
         }
-	}
-    void GenerateFloor(GameObject spawnpoint)
+        int r2 = Random.Range(0, floorsStraight.Count);
+        GameObject go2 = Instantiate(floorsStraight.ToArray()[r2], location, rot) as GameObject;
+        go2.GetComponent<SpawnFloors>().StartCoroutine("Create");
+    }
+    public void GenerateFloor(GameObject spawnpoint)
     {
         int r = Random.Range(0, floorsCorners.Count);
-        GameObject go = Instantiate(floorsStraight.ToArray()[r], spawnpoint.transform.Find("SpawnPoint").transform.localPosition, spawnpoint.transform.Find("SpawnPoint").transform.rotation) as GameObject;
+        GameObject go = Instantiate(floorsCorners.ToArray()[r], new Vector3(spawnpoint.transform.position.x, spawnpoint.transform.position.y, spawnpoint.transform.position.z ), spawnpoint.transform.rotation) as GameObject;
+        go.GetComponent<SpawnFloors>().StartCoroutine("Create");
     }
 	// Update is called once per frame
 	void Update () {
