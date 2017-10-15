@@ -23,7 +23,7 @@ public class SpawnFloors : MonoBehaviour {
     }
     public IEnumerator Create()
     {
-        yield return new  WaitForSeconds(3);
+        yield return new  WaitForSeconds(2);
         gm.GetComponent<GeneratingFloors>().GenerateFloor(positionToSpawn);
     }
 	// Update is called once per frame

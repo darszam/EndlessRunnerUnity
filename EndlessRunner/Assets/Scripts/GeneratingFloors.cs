@@ -9,12 +9,12 @@ public class GeneratingFloors : MonoBehaviour {
 	// Use this for initialization
     void Awake()
     {
-         t = new GameObject().transform; 
+         
     }
 	void Start () {
        
-        var location = new Vector3(t.transform.position.x, t.transform.position.y, t.transform.position.z);
-        var rot = t.rotation;
+        var location = new Vector3(0, 0, 0);
+        var rot = new Quaternion(0,0,0,0);
         
 		for(int counter=0; counter < 6; ++counter)
         {
@@ -30,9 +30,19 @@ public class GeneratingFloors : MonoBehaviour {
     }
     public void GenerateFloor(GameObject spawnpoint)
     {
-        int r = Random.Range(0, floorsCorners.Count);
-        GameObject go = Instantiate(floorsCorners.ToArray()[r], new Vector3(spawnpoint.transform.position.x, spawnpoint.transform.position.y, spawnpoint.transform.position.z ), spawnpoint.transform.rotation) as GameObject;
-        go.GetComponent<SpawnFloors>().StartCoroutine("Create");
+        float which = Random.Range(0.0f, 1.0f);
+        if (which < 0.2)
+        {
+            int r = Random.Range(0, floorsCorners.Count);
+            GameObject go = Instantiate(floorsCorners.ToArray()[r], new Vector3(spawnpoint.transform.position.x, spawnpoint.transform.position.y, spawnpoint.transform.position.z), spawnpoint.transform.rotation) as GameObject;
+            go.GetComponent<SpawnFloors>().StartCoroutine("Create");
+        }
+        else
+        {
+            int r = Random.Range(0, floorsStraight.Count);
+            GameObject go = Instantiate(floorsStraight.ToArray()[r], new Vector3(spawnpoint.transform.position.x, spawnpoint.transform.position.y, spawnpoint.transform.position.z), spawnpoint.transform.rotation) as GameObject;
+            go.GetComponent<SpawnFloors>().StartCoroutine("Create");
+        }
     }
 	// Update is called once per frame
 	void Update () {
