@@ -56,13 +56,13 @@ namespace UnityStandardAssets.Characters.ThirdPerson
             {
                 if(Input.GetKey(KeyCode.D))
                 {
-                    m_Character.TurnCorners(-90);
+                    m_Character.TurnCorners(90);
                     canTurn = false;
                     
                 }
                 if(Input.GetKey(KeyCode.A))
                 {
-                    m_Character.TurnCorners(90);
+                    m_Character.TurnCorners(-90);
                     canTurn = false;
                     
                 }

@@ -16,7 +16,7 @@ public class GeneratingFloors : MonoBehaviour {
         var location = new Vector3(0, 0, 0);
         var rot = new Quaternion(0,0,0,0);
         
-		for(int counter=0; counter < 6; ++counter)
+		for(int counter=0; counter < 2; ++counter)
         {
             int r = Random.Range(0, floorsStraight.Count);
             GameObject go = Instantiate(floorsStraight.ToArray()[r], location, rot) as GameObject;

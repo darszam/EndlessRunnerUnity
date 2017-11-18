@@ -28,7 +28,7 @@ namespace UnityStandardAssets.Characters.ThirdPerson
 		Vector3 m_CapsuleCenter;
 		CapsuleCollider m_Capsule;
 		bool m_Crouching;
-        float m_TurnCorner=0;
+        float m_DesiredRotation=0;
 
 		void Start()
 		{
@@ -54,12 +54,12 @@ namespace UnityStandardAssets.Characters.ThirdPerson
 			CheckGroundStatus();
 			move = Vector3.ProjectOnPlane(move, m_GroundNormal);
 			m_TurnAmount = Mathf.Atan2(move.x, move.z);
-            if (m_TurnCorner != 0)
+           /* if (m_TurnCorner != 0)
             {
                 m_TurnAmount = m_TurnCorner;
-                m_TurnCorner = 0;
                 
-            }
+                
+            }*/
 			m_ForwardAmount = move.z;
 
 			ApplyExtraTurnRotation();
@@ -160,7 +160,9 @@ namespace UnityStandardAssets.Characters.ThirdPerson
         public void TurnCorners(float turnAmount)
         {
 
-            m_TurnCorner = turnAmount;
+            m_DesiredRotation += turnAmount;
+            Quaternion euler = Quaternion.Euler(0, m_DesiredRotation, 0);
+            transform.rotation =  euler;
         }
 
 		void HandleAirborneMovement()
